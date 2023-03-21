@@ -30,20 +30,8 @@ subprojects {
         // WEB
         implementation('org.springframework.boot:spring-boot-starter-web')
 
-        // DB
-        implementation ('org.springframework.boot:spring-boot-starter-data-jpa')
-        implementation ('org.springframework.boot:spring-boot-starter-jdbc')
-        runtimeOnly ('com.h2database:h2')
-
-        // Feign
-        implementation ('org.springframework.cloud:spring-cloud-starter-openfeign')
-        implementation ('io.github.openfeign:feign-okhttp:12.2')
-
         // Validation
         implementation ('org.springframework.boot:spring-boot-starter-validation')
-
-        // AOP
-        // implementation ('org.springframework.boot:spring-boot-starter-aop')
 
         // Log4j
         implementation ('org.bgee.log4jdbc-log4j2:log4jdbc-log4j2-jdbc4:1.16')
@@ -57,11 +45,6 @@ subprojects {
 
         // Gson
         implementation ('com.google.code.gson:gson:2.10.1')
-
-        // Swagger
-        implementation ('io.springfox:springfox-swagger2:3.0.0')
-        implementation ('io.springfox:springfox-swagger-ui:3.0.0')
-        implementation ("io.springfox:springfox-boot-starter:3.0.0")
 
         // Common
         implementation ('org.apache.commons:commons-lang3:3.12.0')
@@ -92,12 +75,27 @@ subprojects {
 
 project(':module-keyword') {
     dependencies {
+        // Swagger
+        implementation ('io.springfox:springfox-swagger2:3.0.0')
+        implementation ('io.springfox:springfox-swagger-ui:3.0.0')
+        implementation ("io.springfox:springfox-boot-starter:3.0.0")
 
+        // DB
+        implementation ('org.springframework.boot:spring-boot-starter-data-jpa')
+        implementation ('org.springframework.boot:spring-boot-starter-jdbc')
+        runtimeOnly ('com.h2database:h2')
     }
 }
 
 project(':module-search') {
     dependencies {
+        // Swagger
+        implementation ('io.springfox:springfox-swagger2:3.0.0')
+        implementation ('io.springfox:springfox-swagger-ui:3.0.0')
+        implementation ("io.springfox:springfox-boot-starter:3.0.0")
 
+        // Feign
+        implementation ('org.springframework.cloud:spring-cloud-starter-openfeign')
+        implementation ('io.github.openfeign:feign-okhttp:12.2')
     }
 }

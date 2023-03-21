@@ -1,8 +1,6 @@
 package com.woo.blog.keyword.ui.dto;
 
 import com.woo.blog.keyword.domain.Keyword;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 import lombok.Getter;
