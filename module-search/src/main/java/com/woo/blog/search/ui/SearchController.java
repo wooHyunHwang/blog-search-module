@@ -40,7 +40,7 @@ public class SearchController {
     public ResponseEntity<SearchResponse> searchBlog(@Valid SearchRequest request) {
 
         // 키워드 등록 요청
-        keywordService.registKeyword(request.getQuery());
+        keywordService.produceKeyword(request.getQuery());
 
         try {
             // Kakao Request

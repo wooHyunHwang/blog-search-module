@@ -10,6 +10,14 @@ spring:
     pathmatch:
       matching-strategy: ant_path_matcher
 
+  rabbitmq:
+    host: localhost
+    port: 12000
+    username: guest
+    password: guest
+    template:
+      reply-timeout: 30000
+
   endpoints:
     web:
       base-path: /actuator
@@ -32,6 +40,12 @@ feign:
         loggerLevel: BASIC
         connectTimeout: 2000	# 3 Way Handshake가 2초 이상은 서버와의 통신 자체 문제로 취급
         readTimeout: 5000	# 수신 서버의 처리시간을 고려하여 설정
+
+app:
+  rabbitMQ:
+    exchange: keyword.exchange
+    queue: keyword.queue
+    routing: keyword.routingKey.#
 
 ex:
   kakao:

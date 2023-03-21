@@ -1,3 +1,4 @@
 rootProject.name = 'spring-blog-search'
+include 'module-batch'
 include 'module-keyword'
 include 'module-search'

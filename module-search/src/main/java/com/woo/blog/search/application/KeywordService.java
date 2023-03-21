@@ -2,8 +2,11 @@ package com.woo.blog.search.application;
 
 import com.woo.blog.search.ui.dto.SearchRequest;
 import com.woo.blog.search.ui.dto.SearchResponse;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
+import org.springframework.amqp.rabbit.core.RabbitTemplate;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import java.util.concurrent.ExecutorService;
@@ -11,9 +14,17 @@ import java.util.concurrent.Executors;
 
 @Slf4j
 @Service
+@RequiredArgsConstructor
 public class KeywordService {
 
-    public void registKeyword(String query) {
+    private final RabbitTemplate rabbitTemplate;
+
+    @Value("${app.rabbitMQ.exchange}")
+    private String exchange;
+    @Value("${app.rabbitMQ.routing}")
+    private String routing;
+
+    public void produceKeyword(String query) {
 
         // 키워드 없는 경우 skip
         if (StringUtils.isBlank(query)) return;
@@ -26,7 +37,8 @@ public class KeywordService {
         executor.execute(() -> {
             log.debug("[Executor] - Original Thread : {}", originalThread);
 
-            // TODO Rabbit MQ
+            // Send Rabbit MQ
+            rabbitTemplate.convertAndSend(exchange, routing, query);
 
             executor.shutdown();
         });

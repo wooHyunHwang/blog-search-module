@@ -73,6 +73,12 @@ subprojects {
     }
 }
 
+project(':module-batch') {
+    dependencies {
+
+    }
+}
+
 project(':module-keyword') {
     dependencies {
         // Swagger
@@ -84,6 +90,8 @@ project(':module-keyword') {
         implementation ('org.springframework.boot:spring-boot-starter-data-jpa')
         implementation ('org.springframework.boot:spring-boot-starter-jdbc')
         runtimeOnly ('com.h2database:h2')
+
+
     }
 }
 
@@ -97,5 +105,8 @@ project(':module-search') {
         // Feign
         implementation ('org.springframework.cloud:spring-cloud-starter-openfeign')
         implementation ('io.github.openfeign:feign-okhttp:12.2')
+
+        // Rabbit MQ
+        implementation("org.springframework.boot:spring-boot-starter-amqp")
     }
 }
