@@ -24,6 +24,8 @@ java -jar {jar file path} --ex.kakao.apiKey="KakaoAK {카카오 Authorization}" 
 
 ```
 
+# Prerequisite to run this project
+
 #### Docker
 
 1. (Window Only) install WSL2
