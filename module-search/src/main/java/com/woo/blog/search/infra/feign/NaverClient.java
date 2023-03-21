@@ -1,6 +1,5 @@
 package com.woo.blog.search.infra.feign;
 
-import com.woo.blog.search.infra.feign.dto.KakaoBlogResponse;
 import com.woo.blog.search.infra.feign.dto.NaverBlogResponse;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -16,8 +15,8 @@ public interface NaverClient {
             @RequestHeader("X-Naver-Client-Secret") String clientSecret,
             @RequestParam("query") String query,
             @RequestParam("sort") String sort, // sim(정확도순) 또는 date(최신순)
-            @RequestParam("start") Long start,
-            @RequestParam("display") Long display
+            @RequestParam("start") int start,
+            @RequestParam("display") int display
     );
 
 }

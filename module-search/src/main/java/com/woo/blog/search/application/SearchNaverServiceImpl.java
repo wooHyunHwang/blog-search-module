@@ -1,6 +1,9 @@
 package com.woo.blog.search.application;
 
 import com.woo.blog.search.infra.feign.NaverClient;
+import com.woo.blog.search.infra.feign.dto.NaverBlogResponse;
+import com.woo.blog.search.ui.dto.SearchRequest;
+import com.woo.blog.search.ui.dto.SearchResponse;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
@@ -19,15 +22,20 @@ public class SearchNaverServiceImpl implements SearchService {
     private String clientSecret;
 
     @Override
-    public Object searchBlog(String msg) {
+    public SearchResponse searchBlog(SearchRequest request) {
 
-        return naverClient.searchBlog(
+        NaverBlogResponse response = naverClient.searchBlog(
                 clientId,
                 clientSecret,
-                "김치",
-                "sim",
-                1L,
-                10L
+                request.getQuery(),
+                request.parseNaverSort(),
+                request.getPage(),
+                request.getSize()
         );
+
+        log.debug("Response : {}", response);
+
+        return new SearchResponse(request, response);
+
     }
 }

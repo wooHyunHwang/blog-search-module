@@ -14,8 +14,8 @@ public interface KakaoClient {
             @RequestHeader("Authorization") String authorization,
             @RequestParam("query") String query,
             @RequestParam("sort") String sort, // accuracy(정확도순) 또는 recency(최신순)
-            @RequestParam("page") Long page,
-            @RequestParam("size") Long size
+            @RequestParam("page") int page,
+            @RequestParam("size") int size
     );
 
 }

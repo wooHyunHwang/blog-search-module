@@ -2,6 +2,8 @@ package com.woo.blog.search.application;
 
 import com.woo.blog.search.infra.feign.KakaoClient;
 import com.woo.blog.search.infra.feign.dto.KakaoBlogResponse;
+import com.woo.blog.search.ui.dto.SearchRequest;
+import com.woo.blog.search.ui.dto.SearchResponse;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
@@ -19,19 +21,18 @@ public class SearchKakaoServiceImpl implements SearchService {
 
 
     @Override
-    public Object searchBlog(String msg) {
-        log.info("authorization : {}", authorization);
+    public SearchResponse searchBlog(SearchRequest request) {
 
-        KakaoBlogResponse res = kakaoClient.searchBlog(
+        KakaoBlogResponse response = kakaoClient.searchBlog(
                 authorization,
-                msg,
-                "accuracy",
-                1L,
-                10L
+                request.getQuery(),
+                request.parseKakaoSort(),
+                request.getPage(),
+                request.getSize()
         );
 
-        log.info("Response : {}", res);
+        log.debug("Response : {}", response);
 
-        return res;
+        return new SearchResponse(request, response);
     }
 }
