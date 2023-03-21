@@ -1,0 +1,3 @@
+rootProject.name = 'spring-blog-search'
+include 'module-keyword'
+include 'module-search'

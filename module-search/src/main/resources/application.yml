@@ -1,0 +1,77 @@
+server:
+  port: 13300
+
+spring:
+  application:
+    name: module-search
+  profiles:
+    active: development
+  mvc:
+    pathmatch:
+      matching-strategy: ant_path_matcher
+  datasource:
+    driver-class-name: org.h2.Driver
+    url: jdbc:h2:tcp://localhost/~/test
+    username: sa
+    password:
+    hikari:
+      autoCommit: true
+      maximumPoolSize: 100
+      minimumIdle: 10
+      connectionTestQuery: SELECT 1
+
+  sql:
+    init:
+      encoding: UTF-8
+
+  h2:
+    console:
+      path: /h2-console
+      enabled: true
+
+  jpa:
+    show_sql: true
+    open-in-view: false
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.H2Dialect
+        format_sql: true
+    hibernate:
+      ddl-auto: update
+      naming:
+        physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
+
+  endpoints:
+    web:
+      base-path: /actuator
+      exposure:
+        include: health
+
+  health:
+    db:
+      enabled: true
+    defaults:
+      enabled: true
+    diskspace:
+      enabled: true
+
+feign:
+  client:
+    config:
+      # FeignClient의 name값으로 타겟팅 가능
+      default: # 기본값
+        loggerLevel: BASIC
+        connectTimeout: 2000	# 3 Way Handshake가 2초 이상은 서버와의 통신 자체 문제로 취급
+        readTimeout: 5000	# 수신 서버의 처리시간을 고려하여 설정
+
+ex:
+  kakao:
+    host: https://dapi.kakao.com
+    # --ex.kakao.apiKey=""
+    apiKey:
+  naver:
+    host: https://openapi.naver.com
+    # --ex.naver.clientId=""
+    clientId:
+    # --ex.naver.clientSecret=""
+    clientSecret:

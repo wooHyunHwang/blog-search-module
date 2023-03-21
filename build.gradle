@@ -1,0 +1,100 @@
+plugins {
+    id 'java'
+    id 'org.springframework.boot' version '2.7.8'
+    id 'io.spring.dependency-management' version '1.0.15.RELEASE'
+}
+
+allprojects {
+    repositories {
+        mavenCentral()
+    }
+}
+
+subprojects {
+    apply plugin: 'java'
+    apply plugin: 'org.springframework.boot'
+    apply plugin: 'io.spring.dependency-management'
+
+    group 'com.woo.blog'
+    version '1.0.0-SNAPSHOT'
+    sourceCompatibility = '11'
+
+    dependencies {
+        // Spring Boot
+        implementation ('org.springframework.boot:spring-boot-starter')
+        testImplementation ('org.springframework.boot:spring-boot-starter-test')
+        implementation ('org.springframework.boot:spring-boot-starter-tomcat')
+        implementation ('commons-codec:commons-codec:1.15')
+        implementation ('commons-beanutils:commons-beanutils:1.9.4')
+
+        // WEB
+        implementation('org.springframework.boot:spring-boot-starter-web')
+
+        // DB
+        implementation ('org.springframework.boot:spring-boot-starter-data-jpa')
+        implementation ('org.springframework.boot:spring-boot-starter-jdbc')
+        runtimeOnly ('com.h2database:h2')
+
+        // Feign
+        implementation ('org.springframework.cloud:spring-cloud-starter-openfeign')
+        implementation ('io.github.openfeign:feign-okhttp:12.2')
+
+        // Validation
+        implementation ('org.springframework.boot:spring-boot-starter-validation')
+
+        // AOP
+        // implementation ('org.springframework.boot:spring-boot-starter-aop')
+
+        // Log4j
+        implementation ('org.bgee.log4jdbc-log4j2:log4jdbc-log4j2-jdbc4:1.16')
+        implementation ('org.codehaus.janino:janino')
+
+        // Model Mapper
+        // implementation ('org.modelmapper:modelmapper:2.3.8')
+
+        // Actuator
+        // implementation ('org.springframework.boot:spring-boot-starter-actuator')
+
+        // Gson
+        implementation ('com.google.code.gson:gson:2.10.1')
+
+        // Swagger
+        implementation ('io.springfox:springfox-swagger2:3.0.0')
+        implementation ('io.springfox:springfox-swagger-ui:3.0.0')
+        implementation ("io.springfox:springfox-boot-starter:3.0.0")
+
+        // Lombok
+        compileOnly ('org.projectlombok:lombok:1.18.26')
+        annotationProcessor ('org.projectlombok:lombok:1.18.26')
+
+        // 개발환경 - 저장 시 Restart
+        runtimeOnly ('org.springframework.boot:spring-boot-devtools')
+    }
+
+    configurations {
+
+    }
+
+    dependencyManagement {
+        imports {
+            mavenBom 'org.springframework.cloud:spring-cloud-dependencies:2021.0.5'
+        }
+    }
+
+    test {
+        useJUnitPlatform()
+        // exclude '**/*'
+    }
+}
+
+project(':module-keyword') {
+    dependencies {
+
+    }
+}
+
+project(':module-search') {
+    dependencies {
+
+    }
+}
