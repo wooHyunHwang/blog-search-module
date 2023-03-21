@@ -1,0 +1,56 @@
+server:
+  port: 13400
+
+spring:
+  application:
+    name: module-keyword
+  profiles:
+    active: development
+  mvc:
+    pathmatch:
+      matching-strategy: ant_path_matcher
+  datasource:
+    driver-class-name: org.h2.Driver
+    url: jdbc:h2:tcp://localhost/~/test
+    username: sa
+    password:
+    hikari:
+      autoCommit: true
+      maximumPoolSize: 100
+      minimumIdle: 10
+      connectionTestQuery: SELECT 1
+
+  sql:
+    init:
+      encoding: UTF-8
+
+  h2:
+    console:
+      path: /h2-console
+      enabled: true
+
+  jpa:
+    show_sql: true
+    open-in-view: false
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.H2Dialect
+        format_sql: true
+    hibernate:
+      ddl-auto: update
+      naming:
+        physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
+
+  endpoints:
+    web:
+      base-path: /actuator
+      exposure:
+        include: health
+
+  health:
+    db:
+      enabled: true
+    defaults:
+      enabled: true
+    diskspace:
+      enabled: true
