@@ -7,13 +7,12 @@ import javax.persistence.Column;
 import javax.persistence.Embeddable;
 import java.io.Serializable;
 import java.util.Objects;
-import java.util.UUID;
 
 @Embeddable
 @Getter
 public class KeywordId implements Serializable {
 
-    @Column(name="`KEYWORD`", length = 15)
+    @Column(name="`KEYWORD`", columnDefinition = "varchar(15)")
     private String id;
 
     protected KeywordId() {}

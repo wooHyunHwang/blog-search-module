@@ -1,5 +1,6 @@
 package com.woo.blog.search.application;
 
+import com.woo.blog.search.domain.QueryMessage;
 import com.woo.blog.search.ui.dto.SearchRequest;
 import com.woo.blog.search.ui.dto.SearchResponse;
 import lombok.RequiredArgsConstructor;
@@ -9,6 +10,7 @@ import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
+import java.nio.charset.StandardCharsets;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
@@ -38,7 +40,7 @@ public class KeywordService {
             log.debug("[Executor] - Original Thread : {}", originalThread);
 
             // Send Rabbit MQ
-            rabbitTemplate.convertAndSend(exchange, routing, query);
+            rabbitTemplate.convertAndSend(exchange, routing, new QueryMessage(query));
 
             executor.shutdown();
         });

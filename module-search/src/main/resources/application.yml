@@ -45,7 +45,7 @@ app:
   rabbitMQ:
     exchange: keyword.exchange
     queue: keyword.queue
-    routing: keyword.routingKey.#
+    routing: keyword.routingKey
 
 ex:
   kakao:

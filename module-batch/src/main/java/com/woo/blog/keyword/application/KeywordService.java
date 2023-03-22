@@ -1,6 +1,8 @@
 package com.woo.blog.keyword.application;
 
 import com.woo.blog.keyword.domain.Keyword;
+import com.woo.blog.keyword.domain.KeywordId;
+import com.woo.blog.keyword.domain.QueryMessage;
 import com.woo.blog.keyword.domain.TopKeywordForRedis;
 import com.woo.blog.keyword.infra.redis.RedisRepository;
 import com.woo.blog.keyword.infra.repository.KeywordRepository;
@@ -14,6 +16,8 @@ import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
@@ -55,32 +59,44 @@ public class KeywordService {
 	/**
 	 * RabbitMQ Consumer
 	 *
-	 * @param query 검색 query
+	 * @param message 검색 query
 	 */
 	@RabbitListener(queues = "${app.rabbitMQ.queue}")
 	@Transactional
-	public void receiveMessage(String query) {
+	public void receiveMessage(QueryMessage message) {
 		log.info("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@");
+		try {
+			List<String> keywords = this.createKeywordListByQuery(message.getQuery());
 
-		List<String> keywords = Keyword.createKeywordListByQuery(query);
+			log.debug("Apply DataBase ... ");
+			for (String keywordStr : keywords) {
+				// 15자 보다 긴 단어는 생략
+				if(StringUtils.length(keywordStr) > 15) break;
 
-		log.debug("Apply DataBase ... ");
-		for (String keywordStr : keywords) {
-			// 15자 보다 긴 단어는 생략
-			if(StringUtils.length(keywordStr) > 15) break;
-			
-			// DB 적용
-			Optional<Keyword> row = keywordRepository.findById(keywordStr);
-			if (row.isPresent()) {
-				// 기존 키워드, 건수 증가
-				row.get().addSearchCount();
-			} else {
-				// 새 키워드 생성
-				keywordRepository.save(new Keyword(keywordStr));
+				// DB 적용
+				Optional<Keyword> row = keywordRepository.findById(new KeywordId(keywordStr));
+				if (row.isPresent()) {
+					// 기존 키워드, 건수 증가
+					row.get().addSearchCount();
+				} else {
+					// 새 키워드 생성
+					keywordRepository.save(Keyword.of(keywordStr));
+				}
 			}
+		} catch (Exception e) {
+			log.error("Rabbit MQ Processing Error : ", e);
 		}
 
 		log.info("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@");
+	}
+
+	private List<String> createKeywordListByQuery(String query) {
+		if ( StringUtils.isNotBlank(query) ) {
+			String trim = StringUtils.replaceAll(StringUtils.trim(query), " +", " ");
+			return Arrays.asList(StringUtils.split(trim, " "));
+		} else {
+			return Collections.emptyList();
+		}
 	}
 
 }

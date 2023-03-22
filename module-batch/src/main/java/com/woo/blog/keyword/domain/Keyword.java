@@ -26,25 +26,16 @@ public class Keyword {
     /**
      * 기본 생성자
      */
-    protected Keyword() {
-        this.searchCount = 1L;
-    }
-    public Keyword(String keywordStr) {
-        this();
-        this.keywordId = new KeywordId(keywordStr);
+    protected Keyword() {}
+    public static Keyword of(String keywordStr) {
+        Keyword keyword = new Keyword();
+        keyword.keywordId = new KeywordId(keywordStr);
+        keyword.searchCount = 1L;
+        return keyword;
     }
 
 
     public void addSearchCount() {
         this.searchCount++;
-    }
-
-    public static List<String> createKeywordListByQuery(String query) {
-        if ( StringUtils.isNotBlank(query) ) {
-            String trim = StringUtils.replaceAll(StringUtils.trim(query), " +", " ");
-            return Arrays.asList(StringUtils.split(trim, " "));
-        } else {
-            return Collections.emptyList();
-        }
     }
 }

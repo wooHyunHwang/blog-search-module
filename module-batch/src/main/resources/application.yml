@@ -1,5 +1,5 @@
 server:
-  port: 13400
+  port: 13500
 
 spring:
   application:
@@ -80,4 +80,6 @@ app:
   rabbitMQ:
     exchange: keyword.exchange
     queue: keyword.queue
-    routing: keyword.routingKey.#
+    routing: keyword.routingKey
+  redis:
+    key: search-keyword-top-10

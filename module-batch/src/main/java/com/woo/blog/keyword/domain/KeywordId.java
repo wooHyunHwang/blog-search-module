@@ -12,11 +12,11 @@ import java.util.Objects;
 @Getter
 public class KeywordId implements Serializable {
 
-    @Column(name="`KEYWORD`", length = 15)
+    @Column(name="`KEYWORD`", columnDefinition = "varchar(15)")
     private String id;
 
     protected KeywordId() {}
-    protected KeywordId(String id) {
+    public KeywordId(String id) {
         this.id = id;
     }
 

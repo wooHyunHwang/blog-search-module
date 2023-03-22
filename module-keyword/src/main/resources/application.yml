@@ -67,3 +67,7 @@ spring:
       enabled: true
     diskspace:
       enabled: true
+
+app:
+  redis:
+    key: search-keyword-top-10
