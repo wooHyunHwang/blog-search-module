@@ -39,7 +39,7 @@ public class KeywordService {
             Optional<Object> topOp = Optional.ofNullable(redisRepository.get(redisKey));
             if (topOp.isPresent()) {
                 TopKeywordForRedis topKeyword = (TopKeywordForRedis) topOp.get();
-                log.info("topKeyword : {}", topKeyword);
+                log.debug("reference is redis");
 
                 return new KeywordResponse(topKeyword);
             }
@@ -52,6 +52,7 @@ public class KeywordService {
 
         // 2. Redis 조회 실패시 DB 에서 조회
         try {
+            log.debug("reference is database");
             return new KeywordResponse(
                     keywordRepository.findTop10ByOrderBySearchCountDesc()
             );

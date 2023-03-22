@@ -8,6 +8,7 @@ import com.woo.blog.keyword.infra.redis.RedisRepository;
 import com.woo.blog.keyword.infra.repository.KeywordRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.lang3.RegExUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.amqp.rabbit.annotation.RabbitListener;
 import org.springframework.beans.factory.annotation.Value;
@@ -35,7 +36,7 @@ public class KeywordService {
 	/**
 	 * 5초마다 Redis 에 Top Keyword 반영 Update
 	 */
-	@Scheduled(cron = "0/5 * * * * ?")
+	@Scheduled(cron = "0/30 * * * * ?")
 	@Async("taskExecutor")
 	public void updateTopKeyword() throws InterruptedException {
 		log.info("########################################################");
@@ -99,7 +100,7 @@ public class KeywordService {
 	 */
 	private List<String> createKeywordListByQuery(String query) {
 		if ( StringUtils.isNotBlank(query) ) {
-			String trim = StringUtils.replaceAll(StringUtils.trim(query), " +", " ");
+			String trim = RegExUtils.replaceAll(StringUtils.trim(query), " +", " ");
 			return Arrays.asList(StringUtils.split(trim, " "));
 		} else {
 			return Collections.emptyList();
