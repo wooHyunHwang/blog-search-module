@@ -1,7 +1,7 @@
 package com.woo.blog.keyword.application;
 
 import com.woo.blog.keyword.infra.redis.RedisRepository;
-import com.woo.blog.keyword.infra.redis.TopKeyword;
+import com.woo.blog.keyword.domain.TopKeywordForRedis;
 import com.woo.blog.keyword.infra.repository.KeywordRepository;
 import com.woo.blog.keyword.ui.dto.KeywordResponse;
 import lombok.RequiredArgsConstructor;
@@ -31,7 +31,7 @@ public class KeywordService {
             // TODO Redis 연동
             Optional<Object> topOp = Optional.ofNullable(redisRepository.get(redisKey));
             if (topOp.isPresent()) {
-                TopKeyword topKeyword = (TopKeyword) topOp.get();
+                TopKeywordForRedis topKeyword = (TopKeywordForRedis) topOp.get();
                 log.info("topKeyword : {}", topKeyword);
             }
         } catch (Exception e) {
