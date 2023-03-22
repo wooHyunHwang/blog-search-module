@@ -3,7 +3,7 @@ server:
 
 spring:
   application:
-    name: module-keyword
+    name: module-batch
   profiles:
     active: development
   mvc:
@@ -41,6 +41,14 @@ spring:
       naming:
         physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
 
+  rabbitmq:
+    host: localhost
+    port: 12000
+    username: guest
+    password: guest
+    template:
+      reply-timeout: 30000
+
   redis:
     host: localhost
     port: 11000
@@ -67,3 +75,9 @@ spring:
       enabled: true
     diskspace:
       enabled: true
+
+app:
+  rabbitMQ:
+    exchange: keyword.exchange
+    queue: keyword.queue
+    routing: keyword.routingKey.#

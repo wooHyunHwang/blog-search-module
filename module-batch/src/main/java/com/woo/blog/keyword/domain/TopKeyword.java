@@ -1,4 +1,4 @@
-package com.woo.blog.keyword.infra.redis;
+package com.woo.blog.keyword.domain;
 
 import java.util.List;
 

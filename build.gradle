@@ -75,7 +75,20 @@ subprojects {
 
 project(':module-batch') {
     dependencies {
+        // Batch
+        implementation ('org.springframework.boot:spring-boot-starter-batch')
 
+        // DB
+        implementation ('org.springframework.boot:spring-boot-starter-data-jpa')
+        implementation ('org.springframework.boot:spring-boot-starter-jdbc')
+        runtimeOnly ('com.h2database:h2')
+
+        // REDIS
+        implementation 'org.springframework.boot:spring-boot-starter-data-redis'
+        // Spring Redis Lettuce 필수 의존성
+        implementation 'org.apache.commons:commons-pool2:2.11.1'
+        // Rabbit MQ
+        implementation("org.springframework.boot:spring-boot-starter-amqp")
     }
 }
 
