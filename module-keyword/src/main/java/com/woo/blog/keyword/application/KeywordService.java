@@ -28,14 +28,16 @@ public class KeywordService {
 
         // 1. Redis 조회
         try {
-            // TODO Redis 연동
+            // Redis 연동
             Optional<Object> topOp = Optional.ofNullable(redisRepository.get(redisKey));
             if (topOp.isPresent()) {
                 TopKeywordForRedis topKeyword = (TopKeywordForRedis) topOp.get();
                 log.info("topKeyword : {}", topKeyword);
+
+                return new KeywordResponse(topKeyword);
             }
         } catch (Exception e) {
-            throw e;
+            log.error("Redis 조회 처리 에러 : {}", e);
         }
 
         // 2. 실패시 DB에서 조회

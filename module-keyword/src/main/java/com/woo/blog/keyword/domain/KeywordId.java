@@ -13,7 +13,7 @@ import java.util.UUID;
 @Getter
 public class KeywordId implements Serializable {
 
-    @Column(name="`KEYWORD`")
+    @Column(name="`KEYWORD`", length = 15)
     private String id;
 
     protected KeywordId() {}

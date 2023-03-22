@@ -1,6 +1,7 @@
 package com.woo.blog.keyword.ui.dto;
 
 import com.woo.blog.keyword.domain.Keyword;
+import com.woo.blog.keyword.domain.TopKeywordForRedis;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 import lombok.Getter;
@@ -33,6 +34,13 @@ public class KeywordResponse {
             );
         }
     }
+    public KeywordResponse(TopKeywordForRedis topKeyword) {
+        this();
+        if (topKeyword == null || topKeyword.getList() == null || topKeyword.getList().isEmpty()) return;
+        for (TopKeywordForRedis.RedisKeywordInfo redisKeywordInfo : topKeyword.getList()) {
+            this.result.add(new KeywordInfo(redisKeywordInfo));
+        }
+    }
 
     public void setErrorData() {
         this.status = HttpStatus.INTERNAL_SERVER_ERROR.value();
@@ -53,9 +61,14 @@ public class KeywordResponse {
 
         protected KeywordInfo() {}
         public KeywordInfo(int rank, Keyword keyword) {
-            this.word = keyword.getOrderId().getId();
+            this.word = keyword.getKeywordId().getId();
             this.searchCount = keyword.getSearchCount();
             this.rank = rank;
+        }
+        public KeywordInfo(TopKeywordForRedis.RedisKeywordInfo keyword) {
+            this.word = keyword.getWord();
+            this.searchCount = keyword.getSearchCount();
+            this.rank = keyword.getRank();
         }
 
     }

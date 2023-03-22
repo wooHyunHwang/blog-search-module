@@ -14,7 +14,7 @@ import javax.persistence.Table;
 public class Keyword {
 
     @EmbeddedId
-    private KeywordId orderId;
+    private KeywordId keywordId;
 
     @Column(name = "`SEARCH_COUNT`", nullable = false)
     private Long searchCount;

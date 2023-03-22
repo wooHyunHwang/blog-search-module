@@ -1,13 +1,17 @@
 package com.woo.blog.keyword.domain;
 
+import lombok.Getter;
+
 import java.util.List;
 
+@Getter
 public class TopKeywordForRedis {
 
-    private List<Keyword> list;
+    private List<RedisKeywordInfo> list;
 
 
-    public static class Keyword {
+    @Getter
+    public static class RedisKeywordInfo {
         private String word;
         private long searchCount;
         private int rank;
