@@ -1,8 +1,12 @@
-# Search Module
+# Batch Module
 
 ### jar run script example
 
-java -jar {jar file path} --spring.datasource.url=jdbc:h2:tcp://localhost/~/test --spring.datasource.username=sa --spring.datasource.password= --spring.redis.host=localhost --spring.redis.port=11000 --spring.redis.password=123456 --spring.rabbitmq.host=localhost --spring.rabbitmq.port=12000 --spring.rabbitmq.username=guest --spring.rabbitmq.password=guest
+java -jar {jar file path} --spring.datasource.url=jdbc:h2:tcp://{db host}/~/{database} --spring.datasource.username={db username} --spring.datasource.password= --spring.redis.host=localhost --spring.redis.port=11000 --spring.redis.password={db password} --spring.rabbitmq.host={RabbitMQ host} --spring.rabbitmq.port={RabbitMQ port} --spring.rabbitmq.username={RabbitMQ username} --spring.rabbitmq.password={RabbitMQ password}
+
+### Script Example
+
+java -jar module-batch/build/libs/module-batch-1.0.0-SNAPSHOT.jar --spring.datasource.url=jdbc:h2:tcp://localhost/~/test --spring.datasource.username=sa --spring.datasource.password= --spring.redis.host=localhost --spring.redis.port=11000 --spring.redis.password=123456 --spring.rabbitmq.host=localhost --spring.rabbitmq.port=12000 --spring.rabbitmq.username=guest --spring.rabbitmq.password=guest
 
 ### Used External Module
 

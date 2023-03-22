@@ -1,8 +1,14 @@
 # Search Module
 
-### jar run script example
+### Script
 
-java -jar {jar file path} --ex.kakao.apiKey="KakaoAK {카카오 Authorization}" --ex.naver.clientId="{네이버 client id}" --ex.naver.clientSecret="{네이버 client secret}" --spring.rabbitmq.host=localhost --spring.rabbitmq.port=12000 --spring.rabbitmq.username=guest --spring.rabbitmq.password=guest
+- 명령어 사용시 {}, 중괄호에 알맞은 값으로 변경해주세요.
+
+java -jar {jar file path} --ex.kakao.apiKey="KakaoAK {카카오 Authorization}" --ex.naver.clientId="{네이버 client id}" --ex.naver.clientSecret="{네이버 client secret}" --spring.rabbitmq.host={RabbitMQ host} --spring.rabbitmq.port={RabbitMQ port} --spring.rabbitmq.username={RabbitMQ username} --spring.rabbitmq.password={RabbitMQ password}
+
+### Script Example
+
+java -jar module-search/build/libs/module-search-1.0.0-SNAPSHOT.jar --ex.kakao.apiKey="KakaoAK {카카오 Authorization}" --ex.naver.clientId="{네이버 client id}" --ex.naver.clientSecret="{네이버 client secret}" --spring.rabbitmq.host=localhost --spring.rabbitmq.port=12000 --spring.rabbitmq.username=guest --spring.rabbitmq.password=guest
 
 ### Used External Module
 

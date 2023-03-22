@@ -1,8 +1,14 @@
-# Search Module
+# Keyword Module
 
-### jar run script example
+### Script
 
-java -jar {jar file path} --spring.datasource.url=jdbc:h2:tcp://localhost/~/test --spring.datasource.username=sa --spring.datasource.password= --spring.redis.host=localhost --spring.redis.port=11000 --spring.redis.password=123456
+- 명령어 사용시 {}, 중괄호에 알맞은 값으로 변경해주세요.
+
+java -jar {jar file path} --spring.datasource.url=jdbc:h2:tcp://{db host}/~/{database} --spring.datasource.username={db username} --spring.datasource.password= --spring.redis.host=localhost --spring.redis.port=11000 --spring.redis.password={db password}
+
+### Script Example
+
+java -jar module-keyword/build/libs/module-keyword-1.0.0-SNAPSHOT.jar --spring.datasource.url=jdbc:h2:tcp://localhost/~/test --spring.datasource.username=sa --spring.datasource.password= --spring.redis.host=localhost --spring.redis.port=11000 --spring.redis.password=123456
 
 ### Used External Module
 
