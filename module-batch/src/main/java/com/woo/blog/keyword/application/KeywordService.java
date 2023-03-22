@@ -36,7 +36,7 @@ public class KeywordService {
 	/**
 	 * 5초마다 Redis 에 Top Keyword 반영 Update
 	 */
-	@Scheduled(cron = "0/30 * * * * ?")
+	@Scheduled(cron = "0/5 * * * * ?")
 	@Async("taskExecutor")
 	public void updateTopKeyword() throws InterruptedException {
 		log.info("########################################################");
