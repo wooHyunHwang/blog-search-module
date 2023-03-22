@@ -91,7 +91,10 @@ project(':module-keyword') {
         implementation ('org.springframework.boot:spring-boot-starter-jdbc')
         runtimeOnly ('com.h2database:h2')
 
-
+        // REDIS
+        implementation 'org.springframework.boot:spring-boot-starter-data-redis'
+        // Spring Redis Lettuce 필수 의존성
+        implementation 'org.apache.commons:commons-pool2:2.11.1'
     }
 }
 

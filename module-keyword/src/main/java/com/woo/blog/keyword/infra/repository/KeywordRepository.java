@@ -1,4 +1,4 @@
-package com.woo.blog.keyword.infra;
+package com.woo.blog.keyword.infra.repository;
 
 import com.woo.blog.keyword.domain.Keyword;
 import org.springframework.data.domain.Page;

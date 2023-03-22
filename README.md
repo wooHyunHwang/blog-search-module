@@ -41,7 +41,10 @@ java -jar {jar file path} --ex.kakao.apiKey="KakaoAK {카카오 Authorization}" 
 #### Redis in Docker
 
 1. docker pull redis:latest
-2. docker run -d --name my-redis -p 11000:6379 redis:latest
+2. docker run -d --name my-redis -p 11000:6379 redis:latest --requirepass "123456"
+
+- docker cli 접속 : docker exec -it my-redis redis-cli
+  -a 123456
 
 #### RabbitMQ in Docker
 

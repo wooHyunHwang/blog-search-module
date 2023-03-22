@@ -1,19 +1,16 @@
 package com.woo.blog.keyword.application;
 
-import com.woo.blog.keyword.domain.Keyword;
-import com.woo.blog.keyword.infra.KeywordRepository;
+import com.woo.blog.keyword.infra.redis.RedisRepository;
+import com.woo.blog.keyword.infra.redis.TopKeyword;
+import com.woo.blog.keyword.infra.repository.KeywordRepository;
 import com.woo.blog.keyword.ui.dto.KeywordResponse;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.commons.lang3.StringUtils;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Sort;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
-import java.util.List;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
+import java.util.Optional;
 
 @Slf4j
 @Service
@@ -21,13 +18,22 @@ import java.util.concurrent.Executors;
 @RequiredArgsConstructor
 public class KeywordService {
 
+    private final RedisRepository redisRepository;
     private final KeywordRepository keywordRepository;
+
+    @Value("${app.redis.key}")
+    private String redisKey;
 
     public KeywordResponse selectTop10Keyword() {
 
         // 1. Redis 조회
         try {
             // TODO Redis 연동
+            Optional<Object> topOp = Optional.ofNullable(redisRepository.get(redisKey));
+            if (topOp.isPresent()) {
+                TopKeyword topKeyword = (TopKeyword) topOp.get();
+                log.info("topKeyword : {}", topKeyword);
+            }
         } catch (Exception e) {
             throw e;
         }
