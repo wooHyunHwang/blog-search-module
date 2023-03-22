@@ -1,7 +1,8 @@
-package com.woo.blog.search.application;
+package com.woo.blog.search.application.impl;
 
-import com.woo.blog.search.infra.feign.NaverClient;
-import com.woo.blog.search.infra.feign.dto.NaverBlogResponse;
+import com.woo.blog.search.application.SearchService;
+import com.woo.blog.search.infra.feign.KakaoClient;
+import com.woo.blog.search.infra.feign.dto.KakaoBlogResponse;
 import com.woo.blog.search.ui.dto.SearchRequest;
 import com.woo.blog.search.ui.dto.SearchResponse;
 import lombok.RequiredArgsConstructor;
@@ -12,23 +13,21 @@ import org.springframework.stereotype.Service;
 @Slf4j
 @Service
 @RequiredArgsConstructor
-public class SearchNaverServiceImpl implements SearchService {
+public class SearchKakaoServiceImpl implements SearchService {
 
-    private final NaverClient naverClient;
+    private final KakaoClient kakaoClient;
 
-    @Value("${ex.naver.clientId}")
-    private String clientId;
-    @Value("${ex.naver.clientSecret}")
-    private String clientSecret;
+    @Value("${ex.kakao.apiKey}")
+    private String authorization;
+
 
     @Override
     public SearchResponse searchBlog(SearchRequest request) {
 
-        NaverBlogResponse response = naverClient.searchBlog(
-                clientId,
-                clientSecret,
+        KakaoBlogResponse response = kakaoClient.searchBlog(
+                authorization,
                 request.getQuery(),
-                request.parseNaverSort(),
+                request.parseKakaoSort(),
                 request.getPage(),
                 request.getSize()
         );
@@ -36,6 +35,5 @@ public class SearchNaverServiceImpl implements SearchService {
         log.debug("Response : {}", response);
 
         return new SearchResponse(request, response);
-
     }
 }

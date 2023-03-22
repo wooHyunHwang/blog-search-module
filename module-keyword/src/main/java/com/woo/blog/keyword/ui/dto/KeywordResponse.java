@@ -42,6 +42,9 @@ public class KeywordResponse {
         }
     }
 
+    /**
+     * 에러 데이터 설정
+     */
     public void setErrorData() {
         this.status = HttpStatus.INTERNAL_SERVER_ERROR.value();
         this.message = "처리 중 에러가 발생했습니다.";

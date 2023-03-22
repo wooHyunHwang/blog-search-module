@@ -29,10 +29,8 @@ public class SwaggerConfig {
 		return new ApiInfoBuilder()
 			.title("Blog Keyword Module API")
 			.description("keyword 정보 조회")
-			// .termsOfServiceUrl("")
 			.version("1.0")
 			.license("woo")
-			// .licenseUrl("")
 			.build();
 	}
 

@@ -10,8 +10,6 @@ import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 
 import javax.servlet.http.HttpServletRequest;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 
 @Slf4j
 @Aspect
@@ -19,12 +17,12 @@ import java.util.Date;
 @RequiredArgsConstructor
 public class AspectjLogger {
 
-	private final SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS");
-
+	/**
+	 * Rest API Around Logger
+	 */
 	@Around("execution(* com.woo.blog.*.ui.*Controller.*(..))")
 	public Object around(ProceedingJoinPoint joinPoint) throws Throwable {
 
-		log.info("Request Time : {}", this.now());
 		long startTime = System.currentTimeMillis();
 
 		HttpServletRequest request = ((ServletRequestAttributes) RequestContextHolder.currentRequestAttributes()).getRequest();
@@ -58,14 +56,6 @@ public class AspectjLogger {
 		log.info("It Takes Time [{}]", System.currentTimeMillis() - startTime);
 
 		return result;
-	}
-
-	/**
-	 * 현재 시간
-	 * @return
-	 */
-	private String now() {
-		return formatter.format(new Date());
 	}
 
 }

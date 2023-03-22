@@ -1,15 +1,11 @@
 package com.woo.blog.keyword.domain;
 
 import lombok.Getter;
-import org.apache.commons.lang3.StringUtils;
 
 import javax.persistence.Column;
 import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
 import javax.persistence.Table;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.List;
 
 // Root Aggregate
 @Table(name = "`TB_KEYWORD`")
@@ -35,6 +31,9 @@ public class Keyword {
     }
 
 
+    /**
+     * 조회 건수 증가
+     */
     public void addSearchCount() {
         this.searchCount++;
     }

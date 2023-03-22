@@ -33,9 +33,9 @@ public class KeywordService {
 	private String redisKey;
 
 	/**
-	 * 10초마다 Redis 에 Top Keyword 반영 Update
+	 * 5초마다 Redis 에 Top Keyword 반영 Update
 	 */
-	@Scheduled(cron = "0/20 * * * * ?")
+	@Scheduled(cron = "0/5 * * * * ?")
 	@Async("taskExecutor")
 	public void updateTopKeyword() throws InterruptedException {
 		log.info("########################################################");
@@ -45,7 +45,7 @@ public class KeywordService {
 	}
 
 	/**
-	 * 레디스에 Top Keyword 최신화
+	 * Redis 에 Top Keyword 최신화
 	 */
 	private void updateRedisData() {
 		log.info("Redis 정보를 최신화 합니다.");
@@ -58,12 +58,13 @@ public class KeywordService {
 
 	/**
 	 * RabbitMQ Consumer
+	 * 	- 큐에서 전달받은 쿼리를 DB에 반영
 	 *
 	 * @param message 검색 query
 	 */
 	@RabbitListener(queues = "${app.rabbitMQ.queue}")
 	@Transactional
-	public void receiveMessage(QueryMessage message) {
+	public void consumeKeyword(QueryMessage message) {
 		log.info("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@");
 		try {
 			List<String> keywords = this.createKeywordListByQuery(message.getQuery());
@@ -90,6 +91,12 @@ public class KeywordService {
 		log.info("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@");
 	}
 
+	/**
+	 * Query String의 좌우 여백을 제거하고, 공백을 기준으로 split 처리
+	 *
+	 * @param query 검색어
+	 * @return List<String>
+	 */
 	private List<String> createKeywordListByQuery(String query) {
 		if ( StringUtils.isNotBlank(query) ) {
 			String trim = StringUtils.replaceAll(StringUtils.trim(query), " +", " ");

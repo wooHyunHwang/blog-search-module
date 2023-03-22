@@ -5,6 +5,9 @@ import lombok.Getter;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Redis에서 사용할 모델
+ */
 @Getter
 public class TopKeywordForRedis {
 
@@ -14,6 +17,12 @@ public class TopKeywordForRedis {
     protected TopKeywordForRedis() {
         this.list = new ArrayList<>();
     }
+
+    /**
+     * Keyword 도메인을 위한 생성자
+     * 
+     * @param keywords Aggregates
+     */
     public TopKeywordForRedis(List<Keyword> keywords) {
         this();
 
@@ -31,6 +40,13 @@ public class TopKeywordForRedis {
         private int rank;
 
         protected RedisKeywordInfo() {}
+
+        /**
+         * Keyword 도메인을 위한 생성자
+         * 
+         * @param rank 순위
+         * @param keyword Aggregate
+         */
         public RedisKeywordInfo(int rank, Keyword keyword) {
             this.word = keyword.getKeywordId().getId();
             this.searchCount = keyword.getSearchCount();

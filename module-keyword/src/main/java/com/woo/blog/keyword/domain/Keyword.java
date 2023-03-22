@@ -24,4 +24,8 @@ public class Keyword {
      */
     protected Keyword() {}
 
+    /**
+     * 조회만 하기 때문에 규칙과 기능은 제외
+     */
+
 }
