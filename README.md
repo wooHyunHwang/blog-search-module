@@ -8,15 +8,9 @@
 
 - [module-search](./module-search/README.md)
 
-https://drive.google.com/file/d/1bqRloqjA8WezJqTpeBrCiIgUYHQ5w196/view?usp=sharing
-
 - [module-keyword](./module-keyword/README.md)
 
-https://drive.google.com/file/d/1-mGIv6DaL102J-zz2tiOEFkoy_AmCW9z/view?usp=sharing
-
 - [module-batch](./module-batch/README.md)
-
-https://drive.google.com/file/d/1jAd_xYblfBoW9OMBCA6DnYrkA2Agbey4/view?usp=sharing
 
 ### gradle Run & jar run script
 
