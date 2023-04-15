@@ -75,3 +75,4 @@ java -jar {jar file path} --ex.kakao.apiKey="KakaoAK {카카오 Authorization}" 
 - Cloud Based Architecture
 
 <img src="cloud_based_architecture.png" alt="아키텍처">
+
